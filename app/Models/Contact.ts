@@ -3,12 +3,12 @@ import { BaseModel, column, beforeCreate } from '@ioc:Adonis/Lucid/Orm'
 import { cuid } from '@ioc:Adonis/Core/Helpers'
 
 export default class Contact extends BaseModel {
-  public static selfAssignPrimaryKey = true
+  public static selfAssignPrimaryKey = true // <-- Very important
 
   @column({ isPrimary: true })
   public id: string
 
-  @column()
+  @column({ serializeAs: 'firstName' })
   public firstName: string
 
   @column()
@@ -17,34 +17,34 @@ export default class Contact extends BaseModel {
   @column()
   public company?: string | null | undefined
 
-  @column()
+  @column({ serializeAs: 'jobTitle' })
   public jobTitle?: string | null | undefined
 
   @column()
-  public email1?: string | null | undefined
+  public email1: string
 
   @column()
   public email2?: string | null | undefined
 
-  @column()
+  @column({ serializeAs: 'phoneNumber1' })
   public phoneNumber1: string
 
-  @column()
+  @column({ serializeAs: 'phoneNumber2' })
   public phoneNumber2?: string | null | undefined
 
   @column()
   public country?: string | null | undefined
 
-  @column()
+  @column({ serializeAs: 'streetAddressLine1' })
   public streetAddressLine1?: string | null | undefined
 
-  @column()
+  @column({ serializeAs: 'streetAddressLine2' })
   public streetAddressLine2?: string | null | undefined
 
   @column()
   public city?: string | null | undefined
 
-  @column()
+  @column({ serializeAs: 'postCode' })
   public postCode?: string | null | undefined
 
   @column()
@@ -59,10 +59,10 @@ export default class Contact extends BaseModel {
   @column()
   public notes?: string | null | undefined
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true, serializeAs: 'createdAt' })
   public createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: 'updatedAt' })
   public updatedAt: DateTime
 
   @beforeCreate()
